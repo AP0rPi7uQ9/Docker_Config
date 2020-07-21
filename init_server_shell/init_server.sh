@@ -51,7 +51,7 @@ cd /home/$SUDO_USER \
 	&& sudo apt-get -y update \
   && echo "===============Prepare to install docker===============" \
 	&& sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common \
-	&& apt-get install -y gnupg2 \
+	&& sudo apt-get install -y gnupg2 \
 	&& curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg | sudo apt-key add - \
 	&& sudo add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/debian $(lsb_release -cs) stable" \
 	&& sudo apt-get -y update \
