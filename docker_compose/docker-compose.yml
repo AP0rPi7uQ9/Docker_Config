@@ -1,0 +1,78 @@
+version: '3'
+services:
+ debian:
+  image: k2xg10rvz/debian:1.0.2
+  volumes:
+  - ./wwwroot/:/www/wwwroot/
+  - ./container/debian/init/:/www/container/debian/init/
+  depends_on:
+   - "mariadb"
+   - "postgres"
+  stdin_open: true
+  restart: always
+  networks:
+   network1:
+    ipv4_address: 192.168.3.101
+ nginx:
+  image: k2xg10rvz/nginx:1.1.2
+  volumes:
+  - ./wwwroot/:/www/wwwroot/
+  - ./container/nginx/init/:/www/container/nginx/init/
+  - ./container/nginx/config/core/:/etc/nginx/config/
+  - ./container/nginx/config/additional/:/etc/nginx/conf.d/
+  - ./container/nginx/config/site/:/etc/nginx/sites-available/
+  - ./container/nginx/log/:/var/log/nginx/
+  - ./container/nginx/_letsencrypt/:/var/www/_letsencrypt/
+  - ./container/nginx/letsencrypt/:/etc/letsencrypt/
+  - /var/lib/reserve/nginx/:/etc/nginx/reserve/
+  ports:
+  - "80:80"
+  - "443:443"
+  restart: always
+  networks:
+   network1:
+    ipv4_address: 192.168.3.102
+ mariadb:
+  image: mariadb:10.4
+  volumes:
+  - ./container/mariadb/config/:/etc/mysql/conf.d/
+  - ./container/mariadb/data/:/var/lib/mysql/
+  - ./container/mariadb/init:/docker-entrypoint-initdb.d
+  ports:
+  - "MariaDB Port:3306"
+  environment:
+   MYSQL_ROOT_PASSWORD: root
+  restart: always
+  networks:
+   network1:
+    ipv4_address: 192.168.3.103
+ redis:
+  image: redis:6.0
+  volumes:
+  - ./container/redis/data/:/data/
+  ports:
+  - "Redis Port:6379"
+  restart: always
+  networks:
+   network1:
+    ipv4_address: 192.168.3.104
+ postgres:
+  image: postgres:12.2
+  volumes:
+   - ./container/postgres/config:/etc/postgresql
+   - ./container/postgres/init:/docker-entrypoint-initdb.d
+  ports:
+   - "Postgres Port:5432"
+  environment:
+   POSTGRES_USER: postgres
+   POSTGRES_PASSWORD: postgres
+  restart: always
+  networks:
+   network1:
+    ipv4_address: 192.168.3.105
+networks:
+ network1:
+  ipam:
+   driver: default
+   config:
+    - subnet: "192.168.3.0/24"
