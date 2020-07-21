@@ -4,6 +4,8 @@ SUDO_PASSWORD="password"
 SSH_PORT=22
 MARIADB_PORT=3306
 REDIS_PORT=6379
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
 POSTGRES_PORT=5432
 INCHINA="true"
 GIT_REPOSITORY="https://github.com/AP0rPi7uQ9/Docker_Config.git"
@@ -57,6 +59,8 @@ cd /home/$SUDO_USER \
   && sed -i "s/MariaDB Port/$MARIADB_PORT/" /www/docker-compose.yml \
   && sed -i "s/Redis Port/$REDIS_PORT/" /www/docker-compose.yml \
   && sed -i "s/Postgres Port/$POSTGRES_PORT/" /www/docker-compose.yml \
+  && sed -i "s/postgres_user/$POSTGRES_USER/" /www/docker-compose.yml \
+  && sed -i "s/postgres_password/$POSTGRES_PASSWORD/" /www/docker-compose.yml \
   && (sudo bash -c "cat <<EOF >/etc/iptables.rules
 *filter
 -P INPUT DROP
