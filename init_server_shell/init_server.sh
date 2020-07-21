@@ -8,8 +8,6 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_PORT=5432
 INCHINA="true"
-GIT_REPOSITORY="https://github.com/AP0rPi7uQ9/Docker_Config.git"
-GIT_REPOSITORY_NAME="Docker_Config"
 if [ ! -f "/etc/apt/sources.list.bak" ]; then
     mv /etc/apt/sources.list /etc/apt/sources.list.bak
 fi
@@ -53,8 +51,7 @@ cd /home/$SUDO_USER \
 	&& sudo apt-get -y install docker-ce docker-ce-cli containerd.io \
 	&& if [ "$INCHINA" == "true" ]; then sudo curl -L "https://get.daocloud.io/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose; else sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose; fi \
   && sudo chmod +x /usr/local/bin/docker-compose \
-  && git clone $GIT_REPOSITORY \
-  && sudo mv $GIT_REPOSITORY_NAME/docker_compose /www \
+  && sudo mv ../docker_compose /www \
   && sudo chown -R $SUDO_USER /www/ \
   && sed -i "s/MariaDB Port/$MARIADB_PORT/" /www/docker-compose.yml \
   && sed -i "s/Redis Port/$REDIS_PORT/" /www/docker-compose.yml \
