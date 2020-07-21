@@ -10,6 +10,5 @@ Change ENV variable to yours.
 
 2.Run init script
 ```shell script
-chmod +x Docker_Config/init_server_shell/init_server.sh
-sh Docker_Config/init_server_shell/init_server.sh
+chmod +x Docker_Config/init_server_shell/init_server.sh && sh Docker_Config/init_server_shell/init_server.sh
 ```
