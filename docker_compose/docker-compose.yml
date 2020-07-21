@@ -41,7 +41,7 @@ services:
   ports:
   - "MariaDB Port:3306"
   environment:
-   MYSQL_ROOT_PASSWORD: root
+   MYSQL_ROOT_PASSWORD: YOUR_MARIADB_ROOT_PASSWORD
   restart: always
   networks:
    network1:

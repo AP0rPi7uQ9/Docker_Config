@@ -4,10 +4,13 @@ SUDO_PASSWORD="password"
 SSH_FILE=/etc/ssh/sshd_config
 SSH_PORT=22
 MARIADB_PORT=3306
+MARIADB_USER=mariadb
+MARIADB_PASSWORD=mariadb
+MARIADB_ROOT_PASSWORD=root
 REDIS_PORT=6379
+POSTGRES_PORT=5432
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
-POSTGRES_PORT=5432
 INCHINA="true"
 if [ ! -f "/etc/apt/sources.list.bak" ]; then
     mv /etc/apt/sources.list /etc/apt/sources.list.bak
@@ -64,6 +67,9 @@ cd /home/$SUDO_USER \
   && sudo mv $FILEPATH/Docker_Config/docker_compose /www \
   && sudo chown -R $SUDO_USER /www/ \
   && sed -i "s/MariaDB Port/$MARIADB_PORT/" /www/docker-compose.yml \
+  && sed -i "s/YOUR_MARIADB_ROOT_PASSWORD/$MARIADB_ROOT_PASSWORD/" /www/docker-compose.yml \
+  && sed -i "s/MARIADB_USERNAME/$MARIADB_USER/" /www/container/mariadb/init/init.sql \
+  && sed -i "s/MARIADB_PASSWORD/$MARIADB_PASSWORD/" /www/container/mariadb/init/init.sql \
   && sed -i "s/Redis Port/$REDIS_PORT/" /www/docker-compose.yml \
   && sed -i "s/Postgres Port/$POSTGRES_PORT/" /www/docker-compose.yml \
   && sed -i "s/postgres_user/$POSTGRES_USER/" /www/docker-compose.yml \
