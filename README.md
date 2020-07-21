@@ -12,3 +12,12 @@ Change ENV variable to yours.
 ```shell script
 chmod +x Docker_Config/init_server_shell/init_server.sh && sh Docker_Config/init_server_shell/init_server.sh
 ```
+
+**If you log in with a pubickey**
+
+```
+mkdir /home/(YOUR_USERNAME)/.ssh
+cp /root/.ssh/authorized_keys /home/(YOUR_USERNAME)/.ssh/authorized_keys
+chown -R (YOUR_USERNAME) /home/(YOUR_USERNAME)/.ssh
+```
+
