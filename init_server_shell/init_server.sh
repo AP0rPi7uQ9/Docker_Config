@@ -60,7 +60,7 @@ cd /home/$SUDO_USER \
   && echo "===============Prepare to install docker-compose===============" \
 	&& if [ "$INCHINA" == "true" ]; then sudo curl -L "https://get.daocloud.io/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose; else sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose; fi \
   && sudo chmod +x /usr/local/bin/docker-compose \
-  && sudo mv ../docker_compose /www \
+  && sudo mv Docker_Config/docker_compose /www \
   && sudo chown -R $SUDO_USER /www/ \
   && sed -i "s/MariaDB Port/$MARIADB_PORT/" /www/docker-compose.yml \
   && sed -i "s/Redis Port/$REDIS_PORT/" /www/docker-compose.yml \
