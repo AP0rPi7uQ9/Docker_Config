@@ -24,7 +24,8 @@ services:
   - ./container/nginx/log/:/var/log/nginx/
   - ./container/nginx/_letsencrypt/:/var/www/_letsencrypt/
   - ./container/nginx/letsencrypt/:/etc/letsencrypt/
-  - /var/lib/reserve/nginx/:/etc/nginx/reserve/
+  - /var/lib/.reserve/nginx/:/etc/nginx/reserve/
+  - /var/lib/.reserve/nginxlog/:/var/log/reserve/
   ports:
   - "80:80"
   - "443:443"
