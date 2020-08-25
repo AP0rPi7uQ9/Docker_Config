@@ -1,4 +1,6 @@
-FROM debian:10.2
+FROM debian:10.4
+
+ENV URL https://github.com/Wind4/vlmcsd/releases/download/svn1113/binaries.tar.gz
 
 # -e导致命令停止任何错误.更典型的语法是用&&和/或停止任何错误.
 # -x使shell输出正在运行的每个命令.这对于调试脚本很有用.
@@ -15,8 +17,9 @@ deb http://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main cont
 >> /etc/apt/sources.list \
 	&& apt-get update \
 	&& apt-get install -y git wget \
-	&& wget -P /root/download http://software.lllllllllllllllllllll.com:85/vlmcsd-1113.tar.gz \
-	&& tar -xvf /root/download/vlmcsd-1113.tar.gz -C /root/download/
+	&& mkdir /root/download \
+	&& wget -O /root/download/binaries.tar.gz $URL \
+	&& tar -xvf /root/download/binaries.tar.gz -C /root/download/
 
 EXPOSE 1688
 
