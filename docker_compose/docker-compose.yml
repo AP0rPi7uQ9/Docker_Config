@@ -51,6 +51,9 @@ services:
   image: redis:6.0
   volumes:
   - ./container/redis/data/:/data/
+  - ./container/redis/config/redis.conf:/usr/local/etc/redis/redis.conf
+  command:
+    redis-server /usr/local/etc/redis/redis.conf
   ports:
   - "Redis Port:6379"
   restart: always
