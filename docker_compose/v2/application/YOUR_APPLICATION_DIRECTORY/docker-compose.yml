@@ -1,0 +1,15 @@
+version: '3'
+services:
+ YOUR_APPLICATION_NAME:
+  image: k2xg10rvz/debian:1.0.2
+  volumes:
+  - ./data/:/www/wwwroot/YOUR_APPLICATION_NAME/
+  - ./init/:/www/container/debian/init/
+  stdin_open: true
+  restart: always
+  networks:
+   app_net:
+    ipv4_address: 192.168.1.100
+networks:
+ app_net:
+  external: true

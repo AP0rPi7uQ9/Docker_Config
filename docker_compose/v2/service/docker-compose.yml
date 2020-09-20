@@ -1,0 +1,66 @@
+version: '3'
+services:
+ nginx:
+  image: k2xg10rvz/nginx:1.1.2
+  volumes:
+  - ../application/:/www/wwwroot/
+  - ./nginx/init/:/www/container/nginx/init/
+  - ./nginx/config/core/:/etc/nginx/config/
+  - ./nginx/config/additional/:/etc/nginx/conf.d/
+  - ./nginx/config/site/:/etc/nginx/sites-available/
+  - ./nginx/log/:/var/log/nginx/
+  - ./nginx/_letsencrypt/:/var/www/_letsencrypt/
+  - ./nginx/letsencrypt/:/etc/letsencrypt/
+  # - /usr/lib/serv/nginx/:/etc/nginx/reserve/
+  # - /usr/lib/serv/tmp/:/var/log/reserve/
+  ports:
+  - "80:80"
+  - "443:443"
+  restart: always
+  networks:
+   app_net:
+    ipv4_address: 192.168.1.10
+ mariadb:
+  image: mariadb:10.4
+  volumes:
+  - ./mariadb/config/:/etc/mysql/conf.d/
+  - ./mariadb/data/:/var/lib/mysql/
+  - ./mariadb/init:/docker-entrypoint-initdb.d
+  ports:
+  - "MariaDB Port:3306"
+  environment:
+   MYSQL_ROOT_PASSWORD: YOUR_MARIADB_ROOT_PASSWORD
+  restart: always
+  networks:
+   app_net:
+    ipv4_address: 192.168.1.11
+ redis:
+  image: redis:6.0
+  volumes:
+  - ./redis/data/:/data/
+  - ./redis/config/redis.conf:/usr/local/etc/redis/redis.conf
+  command:
+    redis-server /usr/local/etc/redis/redis.conf
+  ports:
+  - "Redis Port:6379"
+  restart: always
+  networks:
+   app_net:
+    ipv4_address: 192.168.1.12
+ postgres:
+  image: postgres:12.2
+  volumes:
+   - ./postgres/config:/etc/postgresql
+   - ./postgres/init:/docker-entrypoint-initdb.d
+  ports:
+   - "Postgres Port:5432"
+  environment:
+   POSTGRES_USER: postgres_user
+   POSTGRES_PASSWORD: postgres_password
+  restart: always
+  networks:
+   app_net:
+    ipv4_address: 192.168.1.13
+networks:
+ app_net:
+  external: true
