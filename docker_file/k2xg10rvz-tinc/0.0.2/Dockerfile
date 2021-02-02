@@ -9,7 +9,7 @@ ADD sources.list /etc/apt/
 
 RUN set -ex; \
     apt update \
-	&& apt install -y vim wget curl git tinc \
+	&& apt install -y vim wget curl git net-tools tinc \
 	&& mkdir /tinc
 	
 ADD init.sh /tinc/
