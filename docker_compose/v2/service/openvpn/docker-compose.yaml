@@ -1,0 +1,27 @@
+version: '3.2'
+services:
+  openvpn:
+    cap_add:
+     - NET_ADMIN
+    image: kylemanna/openvpn
+    container_name: openvpn
+    # 192.168.255.0 = YOUR OPENVPN SUBNET
+    command: /bin/bash -c "iptables -t nat -A POSTROUTING -s 192.168.255.0/24 -o eth0 -j MASQUERADE && iptables -t nat -A POSTROUTING -s 192.168.255.0/24 -o eth1 -j MASQUERADE && ovpn_run"
+    ports:
+     - "YOUR PORT:1194/udp"
+     - "YOUR PORT:1194/tcp"
+    restart: always
+    volumes:
+     - ./data/:/etc/openvpn
+    networks:
+     net1:
+     # YOUR OPENVPN NET1 ADDRESS
+      ipv4_address: 192.168.1.2
+     # YOUR OPENVPN NET2 ADDRESS
+     net2:
+      ipv4_address: 10.0.0.2
+networks:
+ net1:
+  external: true
+ net2:
+  external: true

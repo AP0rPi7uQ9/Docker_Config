@@ -1,5 +1,6 @@
 version: '3'
 services:
+
  nginx:
   image: k2xg10rvz/nginx:1.1.2
   volumes:
@@ -20,6 +21,7 @@ services:
   networks:
    app_net:
     ipv4_address: 192.168.1.10
+    
  mariadb:
   image: mariadb:10.4
   volumes:
@@ -34,6 +36,7 @@ services:
   networks:
    app_net:
     ipv4_address: 192.168.1.11
+    
  redis:
   image: redis:6.0
   volumes:
@@ -47,6 +50,7 @@ services:
   networks:
    app_net:
     ipv4_address: 192.168.1.12
+    
  postgres:
   image: postgres:12.2
   volumes:
@@ -61,6 +65,29 @@ services:
   networks:
    app_net:
     ipv4_address: 192.168.1.13
+    
+ traefik:
+ # The official v2 Traefik docker image
+  image: traefik:v2.4
+  environment:
+   - TZ=Asia/Shanghai
+  ports:
+   # The HTTP port
+   - "80"
+   # The Web UI (enabled by --api.insecure=true)
+   - "8080"
+   - "443"
+  restart: always
+  volumes:
+  # So that Traefik can listen to the Docker events
+  - /var/run/docker.sock:/var/run/docker.sock
+  - ./traefik/traefik.yaml:/etc/traefik/traefik.yaml
+  - ./traefik/config:/traefik
+  - ./traefik/log:/etc/traefik/log
+  networks:
+   app_net:
+    ipv4_address: 192.168.1.14
+    
 networks:
  app_net:
   external: true

@@ -1,0 +1,15 @@
+http:
+ routers:
+  dashboard:
+   entryPoints:
+   - "dashboard"
+   rule: (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+   service: api@internal
+   middlewares:
+    - auth
+
+ middlewares:
+  auth:
+   basicAuth:
+    users:
+    - "admin:$apr1$sadEhKwW$BNpyOakcbLp/P7JyP5ghs0"     # admin admin
