@@ -23,7 +23,3 @@ log:
   filePath: "/etc/traefik/log/error.log"
   format: "json"
   level: WARN
-accessLog:
-  filePath: "/etc/traefik/log/access.log"
-  format: "json"
-  bufferingSize: 100
