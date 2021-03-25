@@ -1,0 +1,6 @@
+alive: 8010fe918cf3 172.18.0.4:8301
+event-clock: 1
+alive: 8010fe918cf3 172.18.0.3:8301
+event-clock: 2
+alive: 8010fe918cf3 172.18.0.2:8301
+event-clock: 3

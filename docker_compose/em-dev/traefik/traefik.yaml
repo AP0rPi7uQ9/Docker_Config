@@ -1,0 +1,25 @@
+api:
+  dashboard: true
+ 
+entryPoints:
+  web:
+    address: ":80"
+    forwardedHeaders:
+     trustedIPs:
+     - "127.0.0.0/24"
+  dashboard:
+    address: ":8080"
+
+providers:
+  file:
+    directory: /traefik/
+    watch: true
+  consulCatalog:
+   endpoint:
+    address: 192.168.88.1:8500
+    token: "123456"
+        
+log:
+  filePath: "/etc/traefik/log/error.log"
+  format: "json"
+  level: WARN
