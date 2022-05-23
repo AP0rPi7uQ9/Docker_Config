@@ -12,4 +12,4 @@ RUN set -ex; \
 	&& apt install -y vim wget curl git
 
 #CMD ["bash"]
-CMD  chmod +x /www/container/debian/init/init.sh && sh /www/container/debian/init/init.sh && bash
+CMD  chmod +x /www/service/debian/init/init.sh && sh /www/service/debian/init/init.sh && bash
